@@ -8,11 +8,11 @@ print(net)
 X = torch.rand(2, 4)
 Y = net(X).sum()
 
-print(type(net.name_parameters()))
+print(type(net.named_parameters()))
 for name, param in net.named_parameters():
     print(name, param.size())
 
-for name, param in net[0].name_parameters():
+for name, param in net[0].named_parameters():
     print(name, param.size(), type(param))
 
 class MyModel(nn.Module):
