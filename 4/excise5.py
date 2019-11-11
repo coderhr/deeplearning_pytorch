@@ -2,7 +2,7 @@ import torch
 from torch import nn
 
 x = torch.ones(3)
-torch.save(x, 'x.py')
+torch.save(x, 'x.pt')
 
 x2 = torch.load('x.pt')
 
@@ -31,14 +31,14 @@ net.state_dict()
 optimizer = torch.optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 optimizer.state_dict()
 
-torch.save(model.state_dict(), PATH)
+'''torch.save(model.state_dict(), PATH)
 model = TheModelClass(*args, **kwargs)
 model.load_state_dict(torch.load(PATH))
 
 torch.save(model, PATH)
-model = torch.load(PATH)
+model = torch.load(PATH)'''
 
-x = torch.randn(2, 3)
+X = torch.randn(2, 3)
 Y = net(X)
 
 PATH = './net.pt'
@@ -47,3 +47,4 @@ torch.save(net.state_dict(), PATH)
 net2 = MLP()
 net2.load_state_dict(torch.load(PATH))
 Y2 = net2(X)
+print(Y2 == Y)
