@@ -11,7 +11,7 @@ def vgg_block(num_convs, in_channels, out_channels):
     blk = []
     for i in range(num_convs):
         if i == 0:
-            blk.append(nn.Conv2d(in_channels, out_channels, kernel_size=3, paddin=1))
+            blk.append(nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1))
         else:
             blk.append(nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1))
         blk.append(nn.ReLU())
@@ -40,14 +40,16 @@ def vgg(conv_arch, fc_features, fc_hidden_units=4096):
     return net
 
 net = vgg(conv_arch, fc_features, fc_hidden_units)
+print(net)
 X = torch.rand(1, 1, 224, 224)
+print(X.shape)
 
-for name, blk in net.name_children():
+for name, blk in net.named_children():
     X = blk(X)
     print(name, 'output shape: ', X.shape)
 
 ratio = 8
-small_conv_arch = [(1, 1, 64//ratio), (1, 64//ratio, 128//ratio), (2, 128//ratio, 256//ratio)
+small_conv_arch = [(1, 1, 64//ratio), (1, 64//ratio, 128//ratio), (2, 128//ratio, 256//ratio),
 (2, 256//ratio, 512//ratio), (2, 512//ratio, 512//ratio)]
 
 net = vgg(small_conv_arch, fc_features//ratio, fc_hidden_units//ratio)

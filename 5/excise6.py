@@ -5,7 +5,7 @@ import torchvision
 
 import sys
 sys.path.append("..")
-import d2lzh_pytorhc as d2l
+import d2lzh_pytorch as d2l
 device = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
 
 class AlexNet(nn.Module):
@@ -47,7 +47,7 @@ def load_data_fashion_mnist(batch_size, resize=None, root='~/Datasets/FashionMNI
     trans = []
     if resize:
         trans.append(torchvision.transforms.Resize(size=resize))
-    trains.append(torchvision.transforms.ToTensor())
+    trans.append(torchvision.transforms.ToTensor())
 
     transform = torchvision.transforms.Compose(trans)
     mnist_train = torchvision.datasets.FashionMNIST(root=root, train=True, download=True, transform=transform)

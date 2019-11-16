@@ -1,11 +1,12 @@
 import time
 import torch
 from torch import nn, optim
+import torch.nn.functional as F
 
 import sys
 sys.path.append("..")
 import d2lzh_pytorch as d2l
-device = torch.device('cuda' if torch.data.cuda.is_available() else 'cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def nin_block(in_channels, out_channels, kernel_size, stride, padding):
     blk = nn.Sequential(nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding),
@@ -35,7 +36,7 @@ net = nn.Sequential(
     GlobalAvgPool2d(),
     d2l.FlattenLayer()
 )
-
+print(net)
 X = torch.rand(1, 1, 224, 224)
 for name, blk in net.named_children():
     X = blk(X)
